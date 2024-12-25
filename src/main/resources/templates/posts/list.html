@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bulletin Board</title>
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/list-styles.css}">
+    <style>
+    </style>
+</head>
+<body class="container py-5">
+
+<div class="card p-4 mb-4">
+    <h1>WAN'S BULLETIN BOARD</h1>
+    <div class="text-end">
+        <a href="/board/create-new-post" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Create New Post
+        </a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <div th:if="${success}" class="alert alert-success mt-4" th:text="${success}"></div>
+    <table class="table table-bordered table-striped align-middle">
+        <thead>
+        <tr class="text-center">
+            <th style="width: 5%;">No</th>
+            <th style="width: 40%;">Title</th>
+            <th style="width: 20%;">Author</th>
+            <th style="width: 20%;">Date Created</th>
+            <th style="width: 10%;">Viewers</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post, iterStat : ${posts}">
+            <td class="text-center" th:text="${iterStat.count}"></td>
+            <td>
+                <a th:href="@{/board/detail-post/{id}(id=${post.id}, postNumber=${iterStat.count})}"
+                   class="text-decoration-none fw-bold text-dark"
+                   th:text="${post.title}"></a>
+            </td>
+            <td class="text-center" th:text="${post.author}"></td>
+            <td class="text-left" th:text="${post.FormattedCreated_at}"></td>
+            <td class="text-center" th:text="${post.views}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Footer -->
+<footer class="mt-5 text-center">
+    <p>© 2024 Wans Bulletin Board. ️</p>
+</footer>
+
+</body>
+</html>

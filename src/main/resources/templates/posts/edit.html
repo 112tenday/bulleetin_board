@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Post</title>
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/edit-styles.css}">
+    <style>
+    </style>
+</head>
+<body class="container py-5">
+
+<div class="form-container">
+    <h1>Edit Post</h1>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}">Error message</div>
+
+<!--    <form th:action="@{/board/submit-edit/{id}(id=${post.id}, postNumber=${postNumber})}" method="post" class="needs-validation" novalidate>-->
+    <form th:action="@{/board/submit-edit/{id}(id=${post.id}, postNumber=${postNumber})}"
+          th:object="${post}" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" id="title" name="title" class="form-control" th:field="*{title}" maxlength="100" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:text="${#fields.errors('title')}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" id="author" name="author" class="form-control" th:field="*{author}" maxlength="10" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea id="content" name="content" class="form-control" rows="5" th:field="*{content}" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a th:href="@{/board/detail-post/{id}(id=${post.id}, postNumber=${postNumber})}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+
+</div>
+
+<footer>
+    <p>© 2024 Wans Bulletin Board. ️</p>
+</footer>
+
+
+</body>
+</html>

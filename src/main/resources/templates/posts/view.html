@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detail Postingan</title>
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/view-styles.css}">
+    <style>
+
+    </style>
+</head>
+<body class="container mt-5">
+<div th:if="${success}" class="alert alert-success mt-4" th:text="${success}"></div>
+<div class="content-box">
+    <h1 class="post-title" th:text="'Post ' + ${postNumber} + ': ' + ${post.title}"></h1>
+
+    <div class="info-section">
+        <p><strong>Author:</strong> <span th:text="${post.author}"></span></p>
+        <p><strong>Views:</strong> <span th:text="${post.views}"></span></p>
+        <p><strong>Creation Date:</strong> <span th:text="${post.formattedCreated_at}"></span></p>
+    </div>
+
+    <div class="content-section">
+        <div class="border p-3 bg-light wordwrap">
+            <p th:text="${post.content}"></p>
+        </div>
+    </div>
+    <div>
+        <p th:if="${post.formattedUpdated_at != null}" class="last-modified">
+            Last modified at <span th:text="${post.formattedUpdated_at}"></span>
+        </p>
+    </div>
+
+    <div class="footer-buttons d-flex justify-content-between align-items-center">
+        <div>
+            <a th:href="@{/board}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Back to List
+            </a>
+            <a th:href="@{/board/edit/{id}(id=${post.id}, postNumber=${postNumber})}" class="btn btn-primary">
+                <i class="bi bi-pencil"></i> Edit
+            </a>
+        </div>
+
+        <form th:action="@{/board/delete/{id}(id=${post.id}, postNumber=${postNumber})}" method="post">
+            <div class="d-flex align-items-center">
+                <input type="password" name="password" class="form-control password-input me-2" placeholder="Enter Password">
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Delete Post
+                </button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger mt-2" th:text="${error}"></div>
+        </form>
+    </div>
+</div>
+
+<footer class="mt-5 text-center">
+    <p>© 2024 Wans Bulletin Board. ️</p>
+</footer>
+
+</body>
+</html>
+
